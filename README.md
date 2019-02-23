@@ -25,9 +25,10 @@ Navigate back to project root, and run
 $ mbed new .
 ```
 
-Then export the project for your board and compiler, in this case for the lpc1768 with vscode use the following
+Then set up the target and toolchain
 ```sh
-$ mbed export -i vscode_gcc_arm -m lpc1768 --profile mbed-os/tools/profiles/debug.json
+$ mbed target -m lpc1768 
+$ mbed toolchain -t GCC_ARM 
 ```
 
 Now open the project in VSCode, and go the launch.json. Change the 2 lines with the comment 'CHANGE', to the location of your 'arm-none-eabi-gdb' and 'pyocd-gdbserver'.
@@ -73,4 +74,3 @@ Now install the mbed command line interface (mbed-cli)
 ```sh
 $ pip install mbed-cli
 ```
-
