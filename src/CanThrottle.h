@@ -1,20 +1,19 @@
 #include "../mbed.h"
-#include "CanItem.h"
+#include "../mbedCanLib/src/CanItem.h"
+#include "../mbedCanLib/src/CanAnalog.h"
 #include <vector>
 
 #ifndef CANTHROTTLE_H
 #define CANTHROTTLE_H 
 
 // Defualt throttleMode: constantPower , Defualt throttleRange: low
-class CanThrottle: private CanItem {
+class CanThrottle: private CanAnalog {
     public:
         enum ThrottleMode {constantVelocity = 0, constantPower = 1};
         enum ThrottleRange {low = 0, mid = 1, high = 2};
-        CanThrottle(PinName throttlePin, unsigned canID_, DigitalIn *rangePins_, DigitalIn *modePins_); 
+        CanThrottle(PinName throttlePin, unsigned canID, DigitalIn *rangePins_, DigitalIn *modePins_); 
         void poll();
     private:
-        unsigned canID;
-        AnalogIn throttle;
         ThrottleMode throttleMode;
         ThrottleRange throttleRange;
         DigitalIn *rangePins; // [lo, mid, high]

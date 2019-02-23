@@ -13,9 +13,8 @@ const float lowScaleFactor = 0.3;
 const float midScaleFactor = 0.6;
 const float highScaleFactor = 1;
 
-CanThrottle::CanThrottle(PinName throttlePin, unsigned canID_, DigitalIn *rangePins_, DigitalIn *modePins_) : 
-    CanItem(canID_), 
-    throttle(throttlePin),
+CanThrottle::CanThrottle(PinName throttlePin, unsigned canID, DigitalIn *rangePins_, DigitalIn *modePins_) : 
+    CanAnalog(throttlePin, canID), 
     throttleMode(constantPower),
     throttleRange(low),
     rangePins(rangePins_),
