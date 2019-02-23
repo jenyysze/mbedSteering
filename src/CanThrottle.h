@@ -12,7 +12,7 @@ class CanThrottle: private CanAnalog {
         enum ThrottleMode {constantVelocity = 0, constantPower = 1};
         enum ThrottleRange {low = 0, mid = 1, high = 2};
         CanThrottle(PinName throttlePin, unsigned canID, DigitalIn *rangePins_, DigitalIn *modePins_); 
-        void poll();
+        void poll(); // Override
     private:
         ThrottleMode throttleMode;
         ThrottleRange throttleRange;

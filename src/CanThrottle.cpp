@@ -23,7 +23,7 @@ CanThrottle::CanThrottle(PinName throttlePin, unsigned canID, DigitalIn *rangePi
 
 void CanThrottle::poll() { 
     updateConfiguration();
-    float dataAsFloat = throttle.read(); // Between 0 and 1
+    float dataAsFloat = read(); // Between 0 and 1
     char mode;
 
     // Must break out of each case, defualt behavior is to fallthrough

@@ -6,6 +6,10 @@
 #ifndef PINS_H
 #define PINS_H
 
+// extern CAN can(p30, p29); // Actual pins
+extern CAN can(p9, p10); // Use for testing (current wiring)
+extern Serial pc(USBTX, USBRX); // To print to computer terminal, for testing
+
 // Dials for throttle controls
 DigitalIn loRangePin(p15, PullUp); // dial1
 DigitalIn midRangePin(p16, PullUp); //dial2
