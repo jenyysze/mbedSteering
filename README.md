@@ -12,6 +12,8 @@ Navigate into the repo and run the following command to install the mbed librari
 $ mbed deploy
 ```
 
+* NOTE: If you make any changes to the mbedCanLib then make sure to commit and push those before you commit and push mbedSteeting.
+
 If this is your first time building this project then also:
 
 Navigate to mbed-os folder, and run
