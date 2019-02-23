@@ -1,0 +1,3 @@
+[submodule "mbedCanLib"]
+	path = mbedCanLib
+	url = https://github.com/supermileage/mbedCanLib
