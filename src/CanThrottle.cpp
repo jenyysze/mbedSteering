@@ -4,6 +4,7 @@
 // Throttle data: first num -> mode, following are the data
 // constantVolocity: mode = 0
 // constantPower: mode = 1
+// Activate motor: data = 8
 // stop motor: data = 9
 
 // TODO: Calibrate these
@@ -19,43 +20,47 @@ CanThrottle::CanThrottle(PinName throttlePin, unsigned canID, DigitalIn *rangePi
     throttleRange(low),
     rangePins(rangePins_),
     modePins(modePins_) 
-    {}
+    {
+        isActive = false;
+    }
 
 void CanThrottle::poll() { 
     updateConfiguration();
-    float dataAsFloat = read(); // Between 0 and 1
-    char mode;
+    if(isActive) {
+        float dataAsFloat = read(); // Between 0 and 1
+        char mode;
 
-    // Must break out of each case, defualt behavior is to fallthrough
-    switch(throttleMode) {
-        case constantVelocity:
-            dataAsFloat *= maxVelocity;
-            mode = '0';
-            break;
-        case constantPower:
-            dataAsFloat *= maxCurrent;
-            mode = '1';
-            break;
+        // Must break out of each case, defualt behavior is to fallthrough
+        switch(throttleMode) {
+            case constantVelocity:
+                dataAsFloat *= maxVelocity;
+                mode = '0';
+                break;
+            case constantPower:
+                dataAsFloat *= maxCurrent;
+                mode = '1';
+                break;
+        }
+
+        // Scales data based on throttle ranges
+        switch(throttleRange) {
+            case low:
+                dataAsFloat *= lowScaleFactor;
+                break;
+            case mid:
+                dataAsFloat *= midScaleFactor;
+                break;
+            case high:
+                dataAsFloat *= highScaleFactor;
+                break;
+        }
+
+
+        char data[10]; 
+        sprintf(data, "%c%.3f", mode, dataAsFloat);
+        cout << data << endl;
+        sendMessage(data);
     }
-
-    // Scales data based on throttle ranges
-    switch(throttleRange) {
-        case low:
-            dataAsFloat *= lowScaleFactor;
-            break;
-        case mid:
-            dataAsFloat *= midScaleFactor;
-            break;
-        case high:
-            dataAsFloat *= highScaleFactor;
-            break;
-    }
-
-
-    char data[10]; 
-    sprintf(data, "%c%.3f", mode, dataAsFloat);
-    cout << data << endl;
-    sendMessage(data);
 }
 
 // TODO: Find a better way to only check if it changed? (interupts with callback gave errors)
@@ -72,6 +77,19 @@ void CanThrottle::updateConfiguration() {
     } else if(modePins[1].read() == 0) {
         throttleMode = constantPower;
     }
+}
+
+void CanThrottle::activate() {
+    if(!isActive) {
+        sendMessage("8");
+        isActive = true;
+    }
+}
+
+// Continiously sends for safety
+void CanThrottle::deactivate() {
+    stopMotor();
+    isActive = false;
 }
 
 void CanThrottle::stopMotor() {

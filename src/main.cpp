@@ -8,6 +8,8 @@
 #include "Pins.h"
 #include <iostream>
 
+void updateMotorState();
+
 Timer loopTimer;
 // int runLoopSpeed = 10; //ms
 int runLoopSpeed = 1000; //ms //TODO: remove, this is temp
@@ -24,10 +26,19 @@ int main() {
         while (loopTimer.read_ms() - prevLoopStartTime < runLoopSpeed) {} //Regulate speed of the main loop to runLoopSpeed
 		prevLoopStartTime = loopTimer.read_ms();
 
+        updateMotorState();
         throttle.poll();
 
         // Add every active can button here and call poll()
         // indicatorR.poll(); 
+    }
+}
+
+void updateMotorState() {
+    if(motorDeactivated) {
+        throttle.deactivate();
+    } else {
+        throttle.activate();
     }
 }
 
