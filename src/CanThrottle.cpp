@@ -8,8 +8,8 @@
 // stop motor: data = 9
 
 // TODO: Calibrate these
-const float maxVelocity = 4000.0; // This can actually up to ~8000 (or more?)
-const float maxCurrent = 10.0; // [A], this can go up to 75 actually (perhaps 150)
+const float maxVelocity = 40000.0; // This can actually up to ~8000 (or more?)
+const float maxCurrent = 20.0; // [A], this can go up to 75 actually (perhaps 150)
 const float lowScaleFactor = 0.3;
 const float midScaleFactor = 0.6;
 const float highScaleFactor = 1;
@@ -56,7 +56,7 @@ void CanThrottle::poll() {
         }
 
 
-        char data[10]; 
+        char data[8]; 
         sprintf(data, "%c%.3f", mode, dataAsFloat);
         cout << data << endl;
         sendMessage(data);
@@ -81,6 +81,7 @@ void CanThrottle::updateConfiguration() {
 
 void CanThrottle::activate() {
     if(!isActive) {
+        cout << "Activating" << endl;
         sendMessage("8");
         isActive = true;
     }
@@ -88,6 +89,7 @@ void CanThrottle::activate() {
 
 // Continiously sends for safety
 void CanThrottle::deactivate() {
+    cout << "Deactivating" << endl;
     stopMotor();
     isActive = false;
 }

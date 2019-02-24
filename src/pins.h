@@ -35,8 +35,8 @@ CanButton headlights(p8, headlightsID);
 CanButton horn(p24, hornID);
 
 // TODO: Add screen pins
-DigitalOut motorDeactivated(p7);
-DigitalIn dms(p21);
+DigitalIn motorDeactivated(p7, PullUp);
+DigitalIn dms(p21, PullUp);
 
 Serial serial(p28,p27); // For communication with motor controller over UART (TX, RX)
 

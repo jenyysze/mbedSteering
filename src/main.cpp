@@ -11,8 +11,8 @@
 void updateMotorState();
 
 Timer loopTimer;
-// int runLoopSpeed = 10; //ms
-int runLoopSpeed = 1000; //ms //TODO: remove, this is temp
+int runLoopSpeed = 10; //ms
+// int runLoopSpeed = 1000; //ms //TODO: remove, this is temp
 
 void setup() {
     loopTimer.start();
@@ -26,8 +26,8 @@ int main() {
         while (loopTimer.read_ms() - prevLoopStartTime < runLoopSpeed) {} //Regulate speed of the main loop to runLoopSpeed
 		prevLoopStartTime = loopTimer.read_ms();
 
-        updateMotorState();
         throttle.poll();
+        updateMotorState();
 
         // Add every active can button here and call poll()
         // indicatorR.poll(); 
@@ -35,7 +35,7 @@ int main() {
 }
 
 void updateMotorState() {
-    if(motorDeactivated) {
+    if(motorDeactivated.read()) {
         throttle.deactivate();
     } else {
         throttle.activate();
