@@ -57,7 +57,7 @@ void CanThrottle::poll() {
 
 
         char data[8]; 
-        sprintf(data, "%c%.3f", mode, dataAsFloat);
+        sprintf(data, "%c%.2f", mode, dataAsFloat);
         cout << data << endl;
         sendMessage(data);
     }
