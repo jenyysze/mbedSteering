@@ -12,7 +12,6 @@ void updateMotorState();
 
 Timer loopTimer;
 int runLoopSpeed = 100; //ms
-// int runLoopSpeed = 1000; //ms //TODO: remove, this is temp
 
 void setup() {
     loopTimer.start();
@@ -29,13 +28,18 @@ int main() {
         throttle.poll();
         updateMotorState();
 
-        // Add every active can button here and call poll()
-        // indicatorR.poll(); 
+        // Accessories
+        indicatorR.poll(); 
+        indicatorL.poll(); 
+        headlights.poll();
+        wiper.poll();
+        hazards.poll();
+        horn.poll();
     }
 }
 
 void updateMotorState() {
-    if(motorDeactivated.read()) {
+    if(!motorActivated.read() || !deadManSwitch.read()) { 
         throttle.deactivate();
     } else {
         throttle.activate();
