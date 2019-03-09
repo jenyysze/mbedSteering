@@ -36,7 +36,7 @@ CanButton horn(p24, hornID);
 
 // TODO: Add screen pins
 DigitalIn motorDeactivated(p7, PullUp);
-DigitalIn dms(p21, PullUp);
+DigitalIn deadManSwitch(p21, PullUp);
 
 Serial serial(p28,p27); // For communication with motor controller over UART (TX, RX)
 

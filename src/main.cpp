@@ -35,7 +35,7 @@ int main() {
 }
 
 void updateMotorState() {
-    if(motorDeactivated.read()) {
+    if(motorDeactivated.read() || deadManSwitch.read()) { // Pulled up, so 0 when pressed
         throttle.deactivate();
     } else {
         throttle.activate();
