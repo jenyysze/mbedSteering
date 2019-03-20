@@ -1,7 +1,7 @@
 // IMPORTANT:
 // * Need breakpoint on first line of main to debug without an exception, known error in VSCode
 // * Do not use wait statements while debugging
-// * For serial print use pc.print, and open "screen mbed sterm" in terminal
+// * For serial print use "mbed sterm" in terminal
 // * For some reason during debugging analog read is not working properly, so dont debug while testing throttle
 
 #include "../mbed.h"

@@ -1,8 +1,9 @@
 #include "CanThrottle.h"
 #include <iostream> // TODO: remove
 
-// Activate motor: data = 8
-// stop motor: data = 9
+// Speed request: first char = 7
+// Activate motor: first char = 8
+// stop motor: first char = 9
 
 const float lowScaleFactor = 0.3;
 const float midScaleFactor = 0.6;
@@ -11,7 +12,7 @@ const float highScaleFactor = 1;
 CanThrottle::CanThrottle(PinName throttlePin, unsigned canID, DigitalIn *rangePins_) : 
     CanAnalog(throttlePin, canID), 
     throttleRange(low),
-    rangePins(rangePins_),
+    rangePins(rangePins_)
     {
         isActive = false;
     }
@@ -20,7 +21,6 @@ void CanThrottle::poll() {
     updateConfiguration();
     if(isActive) {
         float dataAsFloat = read(); // Between 0 and 1
-
         // Must break out of each case, defualt behavior is to fallthrough
         // Scales data based on throttle ranges
         switch(throttleRange) {
@@ -36,19 +36,18 @@ void CanThrottle::poll() {
         }
 
         char data[8]; 
-        sprintf(data, "%c%.2f", mode, dataAsFloat);
+        sprintf(data, "%c%.2f", '7', dataAsFloat);
         cout << data << endl;
         sendMessage(data);
     }
 }
 
-// TODO: Find a better way to only check if it changed? (interupts with callback gave errors)
 void CanThrottle::updateConfiguration() {
-    if(rangePins[0].read() == 0) {
+    if(rangePins[0].read()) {
         throttleRange = low;
-    } else if(rangePins[1].read() == 0) {
+    } else if(rangePins[1].read()) {
         throttleRange = mid;
-    } else if(rangePins[2].read() == 0) {
+    } else if(rangePins[2].read()) {
         throttleRange = high;
     }
 }
