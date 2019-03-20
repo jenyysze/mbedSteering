@@ -29,12 +29,12 @@ int main() {
         updateMotorState();
 
         // Accessories
-        indicatorR.poll(); 
-        indicatorL.poll(); 
-        headlights.poll();
-        wiper.poll();
-        hazards.poll();
-        horn.poll();
+        // indicatorR.poll(); 
+        // indicatorL.poll(); 
+        // headlights.poll();
+        // wiper.poll();
+        // hazards.poll();
+        // horn.poll();
     }
 }
 

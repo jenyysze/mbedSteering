@@ -14,15 +14,12 @@ extern Serial pc(USBTX, USBRX); // To print to computer terminal, for testing
 DigitalIn loRangePin(p15, PullDown); // dial1
 DigitalIn midRangePin(p16, PullDown); //dial2
 DigitalIn highRangePin(p17, PullDown); //dial3
-DigitalIn constantVelocityPin(p22, PullDown); //dialB
-DigitalIn constantPowerPin(p23, PullDown); //dialA
 
 // Unused dial inputs
 DigitalIn dial4(p18, PullDown); //dial4
 DigitalIn dial5(p19, PullDown); //dial5
 
 DigitalIn rangePins[] = {loRangePin, midRangePin, highRangePin}; // [lo, mid, high]
-DigitalIn modePins[] = {constantVelocityPin, constantPowerPin}; // [constVel, constPow]
 CanThrottle throttle(p20,throttleID, rangePins, modePins); 
 
 // CanItems
