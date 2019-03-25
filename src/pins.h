@@ -6,7 +6,7 @@
 #ifndef PINS_H
 #define PINS_H
 
-extern CAN can(p30, p29,500000); // Actual pins
+extern CAN can(p30, p29, 500000); // Actual pins
 extern Serial pc(USBTX, USBRX); // To print to computer terminal, for testing
 
 // Dials for throttle controls
