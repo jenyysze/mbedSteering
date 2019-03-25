@@ -5,6 +5,7 @@
 // Activate motor: first char = 8
 // stop motor: first char = 9
 
+const float startThreshold = 0.2; // TODO: implement this
 const float lowScaleFactor = 0.3;
 const float midScaleFactor = 0.6;
 const float highScaleFactor = 1;
