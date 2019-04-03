@@ -9,16 +9,12 @@
 // Defualt throttleMode: constantPower , Defualt throttleRange: low
 class CanThrottle: private CanAnalog {
     public:
-        enum ThrottleRange {low = 0, mid = 1, high = 2};
-        CanThrottle(PinName throttlePin, unsigned canID, DigitalIn *rangePins_); 
+        CanThrottle(PinName throttlePin, unsigned canID); 
         void poll(); // Override
         void activate();
         void deactivate();
     private:
         bool isActive;
-        ThrottleRange throttleRange;
-        DigitalIn *rangePins; // [lo, mid, high]
-        void updateConfiguration();
         void stopMotor();
 };
 

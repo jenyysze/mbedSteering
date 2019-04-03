@@ -25,8 +25,8 @@ int main() {
         while (loopTimer.read_ms() - prevLoopStartTime < runLoopSpeed) {} //Regulate speed of the main loop to runLoopSpeed
 		prevLoopStartTime = loopTimer.read_ms();
 
-        // throttle.poll();
-        // updateMotorState();
+        throttle.poll();
+        updateMotorState();
 
         // Accessories
         indicatorR.poll(); 
