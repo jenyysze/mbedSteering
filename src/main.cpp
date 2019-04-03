@@ -25,16 +25,17 @@ int main() {
         while (loopTimer.read_ms() - prevLoopStartTime < runLoopSpeed) {} //Regulate speed of the main loop to runLoopSpeed
 		prevLoopStartTime = loopTimer.read_ms();
 
-        throttle.poll();
-        updateMotorState();
+        // throttle.poll();
+        // updateMotorState();
 
         // Accessories
-        // indicatorR.poll(); 
-        // indicatorL.poll(); 
-        // headlights.poll();
-        // wiper.poll();
-        // hazards.poll();
-        // horn.poll();
+        indicatorR.poll(); 
+        indicatorL.poll(); 
+        headlights.poll();
+        wiper.poll();
+        hazards.poll();
+        horn.poll();
+        brakeLights.poll();
     }
 }
 

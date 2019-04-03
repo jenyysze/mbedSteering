@@ -24,6 +24,7 @@ CanButton headlights(p8, headlightsID);
 CanButton wiper(p9, wiperID); // Comment this out for testing (w/ current wiring)
 CanButton hazards(p10, hazardsID); // Comment this out for testing (w/ current wiring)
 CanButton horn(p24, hornID);
+CanButton brakeLights(p25, brakeID); 
 
 // TODO: Add screen pins
 DigitalIn motorActivated(p7, PullDown);
