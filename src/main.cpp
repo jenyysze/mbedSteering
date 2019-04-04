@@ -11,7 +11,7 @@
 void updateMotorState();
 
 Timer loopTimer;
-int runLoopSpeed = 100; //ms
+int runLoopSpeed = 200; //ms
 
 void setup() {
     loopTimer.start();
@@ -22,13 +22,15 @@ int main() {
     int prevLoopStartTime = loopTimer.read_ms();
 
     while(true) {
-        while (loopTimer.read_ms() - prevLoopStartTime < runLoopSpeed) {} //Regulate speed of the main loop to runLoopSpeed
-		prevLoopStartTime = loopTimer.read_ms();
-
-        throttle.poll();
+        // Throttle
+        while (loopTimer.read_ms() - prevLoopStartTime < runLoopSpeed / 2) {} //Regulate speed of the main loop throttle delay
+        prevLoopStartTime = loopTimer.read_ms();
         updateMotorState();
+        throttle.poll();
 
         // Accessories
+        while (loopTimer.read_ms() - prevLoopStartTime < runLoopSpeed / 2) {} //Regulate speed of the main loop, accessories delay
+		prevLoopStartTime = loopTimer.read_ms();
         indicatorR.poll(); 
         indicatorL.poll(); 
         headlights.poll();
