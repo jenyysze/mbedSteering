@@ -20,9 +20,7 @@ CanButton hazards(p10, hazardsID);
 CanButton horn(p24, hornID);
 CanButton brakeLights(p25, brakeID); 
 
-DigitalIn motorActivated(p7, PullDown);
 DigitalIn deadManSwitch(p21, PullDown);
-
 #endif
 
 

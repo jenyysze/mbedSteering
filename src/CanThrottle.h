@@ -16,6 +16,7 @@ class CanThrottle: private CanAnalog {
     private:
         bool isActive;
         void stopMotor();
+        float adjustedData(float data);
 };
 
 #endif 

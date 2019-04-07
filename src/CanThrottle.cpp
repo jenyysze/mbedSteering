@@ -5,18 +5,19 @@
 // Activate motor: first char = 8
 // stop motor: first char = 9
 
-const float startThreshold = 0.2; // TODO: implement this
-const float throttleScaleFactor = 1; // TODO: tune
+const float startThreshold = 0.15; // TODO: fine tune
+const float throttleScaleFactor = 6.6; // TODO: tune
+const float maxThrottle = 1.0;
 
 CanThrottle::CanThrottle(PinName throttlePin, unsigned canID) : CanAnalog(throttlePin, canID), isActive(false) {}
 
-void CanThrottle::poll() { 
+void CanThrottle::poll() {
     if(isActive) {
-        float dataAsFloat = read(); // Between 0 and 1
-        dataAsFloat *= throttleScaleFactor;
-        char data[8]; 
+        float dataAsFloat = adjustedData(read()); // Between 0 and 1
+        // cout << "float: " << dataAsFloat << endl;
+        char data[8];   
         sprintf(data, "%c%.2f", '7', dataAsFloat);
-        //cout << data << endl;
+        // cout << data << endl;
         sendMessage(data);
     }
 }
@@ -37,5 +38,15 @@ void CanThrottle::deactivate() {
 }
 
 void CanThrottle::stopMotor() {
+    // cout << "Stopping" << endl;
     sendMessage("9");
+}
+
+float CanThrottle::adjustedData(float data) {
+    float adjustedData = (data - startThreshold);
+    if(adjustedData < 0.0 || adjustedData > maxThrottle) {
+        adjustedData = 0.0;
+    }
+    adjustedData *= throttleScaleFactor;
+    return adjustedData;
 }

@@ -42,7 +42,7 @@ int main() {
 }
 
 void updateMotorState() {
-    if(!motorActivated.read() || !deadManSwitch.read()) { 
+    if(!deadManSwitch.read()) { 
         throttle.deactivate();
     } else {
         throttle.activate();
